@@ -33,7 +33,7 @@ Java 8+
 [Maven Central - link]: https://search.maven.org/artifact/rocks.cleancode/hamcrest-file
 [Javadoc - badge]: https://javadoc.io/badge2/rocks.cleancode/hamcrest-file/javadoc.svg
 [Javadoc - link]: https://javadoc.io/doc/rocks.cleancode/hamcrest-file
-[Codecov - badge]: https://codecov.io/gh/clean-code-rocks/hamcrest-java-file/branch/main/graph/badge.svg
+[Codecov - badge]: https://codecov.io/gh/clean-code-rocks/hamcrest-java-file/branch/main/graph/badge.svg?token=20U73YBOJB
 [Codecov - link]: https://codecov.io/gh/clean-code-rocks/hamcrest-java-file
 [Licence - badge]: https://img.shields.io/badge/License-GPLv3-blue.svg
 [Licence - link]: https://www.gnu.org/licenses/gpl-3.0
