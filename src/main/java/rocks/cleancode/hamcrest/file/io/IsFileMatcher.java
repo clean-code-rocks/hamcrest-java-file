@@ -1,8 +1,7 @@
 package rocks.cleancode.hamcrest.file.io;
 
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+import rocks.cleancode.hamcrest.file.AbstractIsFileMatcher;
 
 import java.io.File;
 
@@ -11,7 +10,7 @@ import java.io.File;
  *
  * @since 1.0.0
  */
-public class IsFileMatcher extends TypeSafeMatcher<File> {
+public class IsFileMatcher extends AbstractIsFileMatcher<File> {
 
     /**
      * Create a matcher for an existing file.
@@ -25,30 +24,7 @@ public class IsFileMatcher extends TypeSafeMatcher<File> {
     }
 
     private IsFileMatcher() {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean matchesSafely(File file) {
-        return file.isFile();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void describeTo(Description description) {
-        description.appendText("a file");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void describeMismatchSafely(File file, Description mismatchDescription) {
-        mismatchDescription.appendText("was not a file");
+        super(File::isFile);
     }
 
 }
