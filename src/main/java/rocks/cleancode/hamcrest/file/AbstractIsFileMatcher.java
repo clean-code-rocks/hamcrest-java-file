@@ -5,10 +5,24 @@ import org.hamcrest.TypeSafeMatcher;
 
 import java.util.function.Predicate;
 
+/**
+ * Abstract matcher for file.
+ *
+ * @param <T> Type representing a file
+ *
+ * @since 1.0.0
+ */
 public abstract class AbstractIsFileMatcher<T> extends TypeSafeMatcher<T> {
 
-    private Predicate<T> predicate;
+    private final Predicate<T> predicate;
 
+    /**
+     * Default constructor with predicate to check file existence.
+     *
+     * @param predicate Predicate to check file existence
+     *
+     * @since 1.0.0
+     */
     protected AbstractIsFileMatcher(Predicate<T> predicate) {
         this.predicate = predicate;
     }
