@@ -1,4 +1,4 @@
-package rocks.cleancode.hamcrest.file;
+package rocks.cleancode.hamcrest.file.nio;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

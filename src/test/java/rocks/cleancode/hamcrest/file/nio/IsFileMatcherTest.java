@@ -1,4 +1,4 @@
-package rocks.cleancode.hamcrest.file;
+package rocks.cleancode.hamcrest.file.nio;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static rocks.cleancode.hamcrest.file.IsFileMatcher.file;
+import static rocks.cleancode.hamcrest.file.nio.IsFileMatcher.file;
 
 public class IsFileMatcherTest {
 
