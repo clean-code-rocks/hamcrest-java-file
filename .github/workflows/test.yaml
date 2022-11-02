@@ -1,0 +1,41 @@
+name: Test
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  unit-test:
+    name: Unit test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup JDK 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+          cache: 'maven'
+
+      - name: Test with Maven
+        run: mvn --batch-mode clean compile test
+
+      - name: Summary
+        run: |
+          awk -F ',' '{                                                             \
+            missed_lines += $8;                                                     \
+            covered_lines += $9;                                                    \
+            tracked_lines += $8 + $9;                                               \
+          }; END {                                                                  \
+            printf "| Coverage | Tracked lines | Covered lines | Missed lines |\n"; \
+            printf "| --------:| -------------:| -------------:| ------------:|\n"; \
+            printf "|      %d% |            %d |            %d |           %d |\n", \
+                   100 * covered_lines / tracked_lines,                             \
+                   tracked_lines,                                                   \
+                   covered_lines,                                                   \
+                   missed_lines;                                                    \
+          }' target/site/jacoco/jacoco.csv >> $GITHUB_STEP_SUMMARY
