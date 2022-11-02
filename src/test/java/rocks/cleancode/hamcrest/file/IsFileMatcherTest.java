@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static rocks.cleancode.hamcrest.file.IsFileMatcher.file;
 
 public class IsFileMatcherTest {
 
@@ -17,7 +18,7 @@ public class IsFileMatcherTest {
     public void should_match_existing_file() throws URISyntaxException {
         Path emptyFilePath = Paths.get(getClass().getResource("/empty_file").toURI());
 
-        assertThat(emptyFilePath, is(new IsFileMatcher()));
+        assertThat(emptyFilePath, is(file()));
     }
 
     @Test
@@ -26,7 +27,7 @@ public class IsFileMatcherTest {
 
         AssertionError assertionError = assertThrows(
             AssertionError.class,
-            () -> assertThat(notAFilePath, is(new IsFileMatcher()))
+            () -> assertThat(notAFilePath, is(file()))
         );
 
         String expectedMessage = String.format(
