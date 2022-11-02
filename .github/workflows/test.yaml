@@ -32,7 +32,7 @@ jobs:
             tracked_lines += $8 + $9;                                               \
           }; END {                                                                  \
             printf "| Coverage | Tracked lines | Covered lines | Missed lines |\n"; \
-            printf "| -------: | ------------: | ------------: | -----------: |\n"; \
+            printf "| --------:| -------------:| -------------:| ------------:|\n"; \
             printf "|      %d% |            %d |            %d |           %d |\n", \
                    100 * covered_lines / tracked_lines,                             \
                    tracked_lines,                                                   \
