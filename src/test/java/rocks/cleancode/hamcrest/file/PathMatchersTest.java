@@ -7,13 +7,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static rocks.cleancode.hamcrest.file.PathMatchers.directory;
-import static rocks.cleancode.hamcrest.file.PathMatchers.file;
+import static rocks.cleancode.hamcrest.file.PathMatchers.*;
 
 public class PathMatchersTest {
 
@@ -66,6 +68,37 @@ public class PathMatchersTest {
             "%n%s%n%s",
             "Expected: is a directory",
             "     but: was not a directory"
+        );
+
+        assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
+    }
+
+    @Test
+    public void should_match_readable_file(@TempDir Path tempDir) throws IOException {
+        Path readableFile = tempDir.resolve("readable-file.txt");
+
+        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("r--r--r--");
+        Files.createFile(readableFile, PosixFilePermissions.asFileAttribute(permissions));
+
+        assertThat(readableFile, is(readable()));
+    }
+
+    @Test
+    public void should_fail_when_file_is_not_readable(@TempDir Path tempDir) throws IOException {
+        Path notReadableFile = tempDir.resolve("not-readable-file.txt");
+
+        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("---------");
+        Files.createFile(notReadableFile, PosixFilePermissions.asFileAttribute(permissions));
+
+        AssertionError assertionError = assertThrows(
+            AssertionError.class,
+            () -> assertThat(notReadableFile, is(readable()))
+        );
+
+        String expectedMessage = String.format(
+            "%n%s%n%s",
+            "Expected: is a readable file",
+            "     but: was not readable"
         );
 
         assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
