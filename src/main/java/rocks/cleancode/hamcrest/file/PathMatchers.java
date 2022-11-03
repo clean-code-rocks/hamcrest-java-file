@@ -20,7 +20,7 @@ public class PathMatchers {
      * @since 1.0.0
      */
     public static Matcher<Path> file() {
-        return new IsFileMatcher<>(Files::isRegularFile);
+        return Matchers.file(Files::isRegularFile);
     }
 
     /**
@@ -31,7 +31,7 @@ public class PathMatchers {
      * @since 1.0.0
      */
     public static Matcher<Path> directory() {
-        return new IsDirectoryMatcher<>(Files::isDirectory);
+        return Matchers.directory(Files::isDirectory);
     }
 
     /**
@@ -42,7 +42,7 @@ public class PathMatchers {
      * @since 1.0.0
      */
     public static Matcher<Path> readable() {
-        return new IsReadableMatcher<>(Files::isReadable);
+        return Matchers.readable(Files::isReadable);
     }
 
     private PathMatchers() {

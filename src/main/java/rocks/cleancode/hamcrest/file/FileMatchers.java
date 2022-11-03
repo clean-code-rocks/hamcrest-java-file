@@ -19,7 +19,7 @@ public class FileMatchers {
      * @since 1.0.0
      */
     public static Matcher<File> file() {
-        return new IsFileMatcher<>(File::isFile);
+        return Matchers.file(File::isFile);
     }
 
     /**
@@ -30,7 +30,7 @@ public class FileMatchers {
      * @since 1.0.0
      */
     public static Matcher<File> directory() {
-        return new IsDirectoryMatcher<>(File::isDirectory);
+        return Matchers.directory(File::isDirectory);
     }
 
     /**
@@ -41,7 +41,7 @@ public class FileMatchers {
      * @since 1.0.0
      */
     public static Matcher<File> readable() {
-        return new IsReadableMatcher<>(File::canRead);
+        return Matchers.readable(File::canRead);
     }
 
     private FileMatchers() {
