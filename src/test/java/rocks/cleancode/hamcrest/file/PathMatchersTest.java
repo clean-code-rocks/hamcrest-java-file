@@ -1,8 +1,10 @@
 package rocks.cleancode.hamcrest.file;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.net.URISyntaxException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -16,10 +18,12 @@ import static rocks.cleancode.hamcrest.file.PathMatchers.file;
 public class PathMatchersTest {
 
     @Test
-    public void should_match_existing_file() throws URISyntaxException {
-        Path emptyFilePath = Paths.get(getClass().getResource("/empty_file").toURI());
+    public void should_match_existing_file(@TempDir Path tempDir) throws IOException {
+        Path existingFile = tempDir.resolve("existing-file.txt");
 
-        assertThat(emptyFilePath, is(file()));
+        Files.createFile(existingFile);
+
+        assertThat(existingFile, is(file()));
     }
 
     @Test
@@ -41,8 +45,10 @@ public class PathMatchersTest {
     }
 
     @Test
-    public void should_match_existing_directory() throws URISyntaxException {
-        Path existingDirectory = Paths.get(getClass().getResource("/test_directory").toURI());
+    public void should_match_existing_directory(@TempDir Path tempDir) throws IOException {
+        Path existingDirectory = tempDir.resolve("path/to/directory");
+
+        Files.createDirectories(existingDirectory);
 
         assertThat(existingDirectory, is(directory()));
     }
