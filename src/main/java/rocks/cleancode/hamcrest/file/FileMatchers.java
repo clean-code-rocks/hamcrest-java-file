@@ -20,6 +20,10 @@ public class FileMatchers {
         return new IsFileMatcher<>(File::isFile);
     }
 
+    public static IsDirectoryMatcher<File> directory() {
+        return new IsDirectoryMatcher<>(File::isDirectory);
+    }
+
     private FileMatchers() {
     }
 

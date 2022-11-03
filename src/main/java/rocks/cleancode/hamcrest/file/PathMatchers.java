@@ -21,6 +21,10 @@ public class PathMatchers {
         return new IsFileMatcher<>(Files::isRegularFile);
     }
 
+    public static IsDirectoryMatcher<Path> directory() {
+        return new IsDirectoryMatcher<>(Files::isDirectory);
+    }
+
     private PathMatchers() {
     }
 
