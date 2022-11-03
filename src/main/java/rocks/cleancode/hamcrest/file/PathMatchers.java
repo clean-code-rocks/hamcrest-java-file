@@ -21,6 +21,13 @@ public class PathMatchers {
         return new IsFileMatcher<>(Files::isRegularFile);
     }
 
+    /**
+     * Create a matcher for existing directory.
+     *
+     * @return Matcher for existing directory.
+     *
+     * @since 1.0.0
+     */
     public static IsDirectoryMatcher<Path> directory() {
         return new IsDirectoryMatcher<>(Files::isDirectory);
     }

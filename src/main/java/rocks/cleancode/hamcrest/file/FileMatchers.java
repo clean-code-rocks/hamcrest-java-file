@@ -20,6 +20,13 @@ public class FileMatchers {
         return new IsFileMatcher<>(File::isFile);
     }
 
+    /**
+     * Create a matcher for existing directory.
+     *
+     * @return Matcher for existing directory.
+     *
+     * @since 1.0.0
+     */
     public static IsDirectoryMatcher<File> directory() {
         return new IsDirectoryMatcher<>(File::isDirectory);
     }
