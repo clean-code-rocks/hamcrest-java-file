@@ -27,7 +27,7 @@ Java 8+
 
 ## Usage
 
-One matcher is provided for file: `file()`.
+Two matchers are provided: `file()` and `directory()`.
 
 ### file()
 
@@ -58,6 +58,37 @@ import static rocks.cleancode.hamcrest.file.FileMatchers.file;
 File file = new File("/path/to/existing/file");
 
 assertThat(file, is(file()));
+```
+
+### directory()
+
+#### For `java.nio.file.Path`
+
+```java
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static rocks.cleancode.hamcrest.file.PathMatchers.directory;
+
+Path path = Paths.get("/path/to/existing/directory");
+
+assertThat(path, is(directory()));
+```
+
+#### For `java.io.File`
+
+```java
+import java.io.File;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static rocks.cleancode.hamcrest.file.FileMatchers.directory;
+
+File file = new File("/path/to/existing/directory");
+
+assertThat(file, is(directory()));
 ```
 
 [Java Hamcrest]: https://hamcrest.org/JavaHamcrest/

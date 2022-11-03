@@ -1,5 +1,7 @@
 package rocks.cleancode.hamcrest.file;
 
+import org.hamcrest.Matcher;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -17,8 +19,19 @@ public class PathMatchers {
      *
      * @since 1.0.0
      */
-    public static IsFileMatcher<Path> file() {
+    public static Matcher<Path> file() {
         return new IsFileMatcher<>(Files::isRegularFile);
+    }
+
+    /**
+     * Create a matcher for existing directory.
+     *
+     * @return Matcher for existing directory.
+     *
+     * @since 1.0.0
+     */
+    public static Matcher<Path> directory() {
+        return new IsDirectoryMatcher<>(Files::isDirectory);
     }
 
     private PathMatchers() {
