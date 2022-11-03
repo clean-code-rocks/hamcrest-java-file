@@ -18,4 +18,7 @@ class Matchers {
         return new PredicateMatcher<>(predicate, "a readable file", "was not readable");
     }
 
+    private Matchers() {
+    }
+
 }
