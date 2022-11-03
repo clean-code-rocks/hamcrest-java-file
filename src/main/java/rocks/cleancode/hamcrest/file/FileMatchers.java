@@ -33,6 +33,17 @@ public class FileMatchers {
         return new IsDirectoryMatcher<>(File::isDirectory);
     }
 
+    /**
+     * Create a matcher for readable file.
+     *
+     * @return Matcher for readable file.
+     *
+     * @since 1.0.0
+     */
+    public static Matcher<File> readable() {
+        return new IsReadableMatcher<>(File::canRead);
+    }
+
     private FileMatchers() {
     }
 

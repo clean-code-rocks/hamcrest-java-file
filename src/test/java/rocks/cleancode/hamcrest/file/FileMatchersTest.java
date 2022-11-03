@@ -12,8 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static rocks.cleancode.hamcrest.file.FileMatchers.directory;
-import static rocks.cleancode.hamcrest.file.FileMatchers.file;
+import static rocks.cleancode.hamcrest.file.FileMatchers.*;
 
 class FileMatchersTest {
 
@@ -66,6 +65,35 @@ class FileMatchersTest {
             "%n%s%n%s",
             "Expected: is a directory",
             "     but: was not a directory"
+        );
+
+        assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
+    }
+
+    @Test
+    public void should_match_readable_file(@TempDir Path tempDir) throws IOException {
+        File readableFile = tempDir.resolve("readable-file.txt").toFile();
+        readableFile.createNewFile();
+        readableFile.setReadable(true);
+
+        assertThat(readableFile, is(readable()));
+    }
+
+    @Test
+    public void should_fail_when_file_is_not_readable(@TempDir Path tempDir) throws IOException {
+        File notReadableFile = tempDir.resolve("not-readable-file.txt").toFile();
+        notReadableFile.createNewFile();
+        notReadableFile.setReadable(false);
+
+        AssertionError assertionError = assertThrows(
+            AssertionError.class,
+            () -> assertThat(notReadableFile, is(readable()))
+        );
+
+        String expectedMessage = String.format(
+            "%n%s%n%s",
+            "Expected: is a readable file",
+            "     but: was not readable"
         );
 
         assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
