@@ -104,4 +104,66 @@ public class PathMatchersTest {
         assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
     }
 
+    @Test
+    public void should_match_writable_file(@TempDir Path tempDir) throws IOException {
+        Path writableFile = tempDir.resolve("writable-file.txt");
+
+        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("-w--w--w-");
+        Files.createFile(writableFile, PosixFilePermissions.asFileAttribute(permissions));
+
+        assertThat(writableFile, is(writable()));
+    }
+
+    @Test
+    public void should_fail_when_file_is_not_writable(@TempDir Path tempDir) throws IOException {
+        Path notWritableFile = tempDir.resolve("not-writable-file.txt");
+
+        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("---------");
+        Files.createFile(notWritableFile, PosixFilePermissions.asFileAttribute(permissions));
+
+        AssertionError assertionError = assertThrows(
+            AssertionError.class,
+            () -> assertThat(notWritableFile, is(writable()))
+        );
+
+        String expectedMessage = String.format(
+            "%n%s%n%s",
+            "Expected: is a writable file",
+            "     but: was not writable"
+        );
+
+        assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
+    }
+
+    @Test
+    public void should_match_executable_file(@TempDir Path tempDir) throws IOException {
+        Path executableFile = tempDir.resolve("executable-file.txt");
+
+        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("--x--x--x");
+        Files.createFile(executableFile, PosixFilePermissions.asFileAttribute(permissions));
+
+        assertThat(executableFile, is(executable()));
+    }
+
+    @Test
+    public void should_fail_when_file_is_not_executable(@TempDir Path tempDir) throws IOException {
+        Path notExecutableFile = tempDir.resolve("not-executable-file.txt");
+
+        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("---------");
+        Files.createFile(notExecutableFile, PosixFilePermissions.asFileAttribute(permissions));
+
+        AssertionError assertionError = assertThrows(
+            AssertionError.class,
+            () -> assertThat(notExecutableFile, is(executable()))
+        );
+
+        String expectedMessage = String.format(
+            "%n%s%n%s",
+            "Expected: is an executable file",
+            "     but: was not executable"
+        );
+
+        assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
+    }
+
 }
