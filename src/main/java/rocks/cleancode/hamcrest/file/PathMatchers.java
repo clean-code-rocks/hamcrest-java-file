@@ -45,6 +45,28 @@ public class PathMatchers {
         return Matchers.readable(Files::isReadable);
     }
 
+    /**
+     * Create a matcher for writable file.
+     *
+     * @return Matcher for writable file.
+     *
+     * @since 1.0.0
+     */
+    public static Matcher<Path> writable() {
+        return Matchers.writable(Files::isWritable);
+    }
+
+    /**
+     * Create a matcher for executable file.
+     *
+     * @return Matcher for executable file.
+     *
+     * @since 1.0.0
+     */
+    public static Matcher<Path> executable() {
+        return Matchers.executable(Files::isExecutable);
+    }
+
     private PathMatchers() {
     }
 

@@ -27,40 +27,11 @@ Java 8+
 
 ## Usage
 
-Three matchers are provided: `file()`, `directory()` and `readable()`.
+Five matchers are provided:
+- `file()` / `directory()`: matches an existing file or directory
+- `readable()` / `writable()` / `executable()`: matches file accessibility
 
-### file()
-
-#### For `java.nio.file.Path`
-
-```java
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static rocks.cleancode.hamcrest.file.PathMatchers.file;
-
-Path path = Paths.get("/path/to/existing/file");
-
-assertThat(path, is(file()));
-```
-
-#### For `java.io.File`
-
-```java
-import java.io.File;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static rocks.cleancode.hamcrest.file.FileMatchers.file;
-
-File file = new File("/path/to/existing/file");
-
-assertThat(file, is(file()));
-```
-
-### directory()
+### file() / directory()
 
 #### For `java.nio.file.Path`
 
@@ -71,10 +42,13 @@ import java.nio.file.Paths;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static rocks.cleancode.hamcrest.file.PathMatchers.directory;
+import static rocks.cleancode.hamcrest.file.PathMatchers.file;
 
-Path path = Paths.get("/path/to/existing/directory");
+Path file = Paths.get("/path/to/file.txt");
+Path dir = Paths.get("/path/to/directory");
 
-assertThat(path, is(directory()));
+assertThat(file, is(file()));
+assertThat(dir, is(directory()));
 ```
 
 #### For `java.io.File`
@@ -85,13 +59,16 @@ import java.io.File;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static rocks.cleancode.hamcrest.file.FileMatchers.directory;
+import static rocks.cleancode.hamcrest.file.FileMatchers.file;
 
-File file = new File("/path/to/existing/directory");
+File file = new File("/path/to/file.txt");
+File dir = new File("/path/to/directory");
 
-assertThat(file, is(directory()));
+assertThat(file, is(file()));
+assertThat(dir, is(directory()));
 ```
 
-### readable()
+### readable() / writable() / executable()
 
 #### For `java.nio.file.Path`
 
@@ -101,11 +78,15 @@ import java.nio.file.Paths;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static rocks.cleancode.hamcrest.file.PathMatchers.executable;
 import static rocks.cleancode.hamcrest.file.PathMatchers.readable;
+import static rocks.cleancode.hamcrest.file.PathMatchers.writable;
 
 Path path = Paths.get("/path/to/readable/file.txt");
 
 assertThat(path, is(readable()));
+assertThat(path, is(writable()));
+assertThat(path, is(executable()));
 ```
 
 #### For `java.io.File`
@@ -115,11 +96,15 @@ import java.io.File;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static rocks.cleancode.hamcrest.file.FileMatchers.executable;
 import static rocks.cleancode.hamcrest.file.FileMatchers.readable;
+import static rocks.cleancode.hamcrest.file.FileMatchers.writable;
 
 File file = new File("/path/to/readable/file.txt");
 
 assertThat(file, is(readable()));
+assertThat(file, is(writable()));
+assertThat(file, is(executable()));
 ```
 
 [Java Hamcrest]: https://hamcrest.org/JavaHamcrest/

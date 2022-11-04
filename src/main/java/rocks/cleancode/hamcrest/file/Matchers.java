@@ -18,6 +18,14 @@ class Matchers {
         return new PredicateMatcher<>(predicate, "a readable file", "was not readable");
     }
 
+    static <T> Matcher<T> writable(Predicate<T> predicate) {
+        return new PredicateMatcher<>(predicate, "a writable file", "was not writable");
+    }
+
+    static <T> Matcher<T> executable(Predicate<T> predicate) {
+        return new PredicateMatcher<>(predicate, "an executable file", "was not executable");
+    }
+
     private Matchers() {
     }
 

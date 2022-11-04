@@ -44,6 +44,28 @@ public class FileMatchers {
         return Matchers.readable(File::canRead);
     }
 
+    /**
+     * Create a matcher for writable file.
+     *
+     * @return Matcher for writable file.
+     *
+     * @since 1.0.0
+     */
+    public static Matcher<File> writable() {
+        return Matchers.writable(File::canWrite);
+    }
+
+    /**
+     * Create a matcher for executable file.
+     *
+     * @return Matcher for executable file.
+     *
+     * @since 1.0.0
+     */
+    public static Matcher<File> executable() {
+        return Matchers.executable(File::canExecute);
+    }
+
     private FileMatchers() {
     }
 

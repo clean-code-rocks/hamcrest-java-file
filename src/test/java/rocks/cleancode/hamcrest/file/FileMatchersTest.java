@@ -99,4 +99,62 @@ class FileMatchersTest {
         assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
     }
 
+    @Test
+    public void should_match_writable_file(@TempDir Path tempDir) throws IOException {
+        File writableFile = tempDir.resolve("writable-file.txt").toFile();
+        writableFile.createNewFile();
+        writableFile.setWritable(true);
+
+        assertThat(writableFile, is(writable()));
+    }
+
+    @Test
+    public void should_fail_when_file_is_not_writable(@TempDir Path tempDir) throws IOException {
+        File notWritableFile = tempDir.resolve("not-writable-file.txt").toFile();
+        notWritableFile.createNewFile();
+        notWritableFile.setWritable(false);
+
+        AssertionError assertionError = assertThrows(
+            AssertionError.class,
+            () -> assertThat(notWritableFile, is(writable()))
+        );
+
+        String expectedMessage = String.format(
+            "%n%s%n%s",
+            "Expected: is a writable file",
+            "     but: was not writable"
+        );
+
+        assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
+    }
+
+    @Test
+    public void should_match_executable_file(@TempDir Path tempDir) throws IOException {
+        File executableFile = tempDir.resolve("executable-file.txt").toFile();
+        executableFile.createNewFile();
+        executableFile.setExecutable(true);
+
+        assertThat(executableFile, is(executable()));
+    }
+
+    @Test
+    public void should_fail_when_file_is_not_executable(@TempDir Path tempDir) throws IOException {
+        File notExecutableFile = tempDir.resolve("not-executable-file.txt").toFile();
+        notExecutableFile.createNewFile();
+        notExecutableFile.setExecutable(false);
+
+        AssertionError assertionError = assertThrows(
+            AssertionError.class,
+            () -> assertThat(notExecutableFile, is(executable()))
+        );
+
+        String expectedMessage = String.format(
+            "%n%s%n%s",
+            "Expected: is an executable file",
+            "     but: was not executable"
+        );
+
+        assertThat(assertionError.getMessage(), is(equalTo(expectedMessage)));
+    }
+
 }
