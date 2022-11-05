@@ -1,0 +1,28 @@
+name: Dependencies to update
+
+on:
+  pull_request:
+    types:
+      - labeled
+
+jobs:
+  dependencies-to-update:
+    name: Dependencies to update
+    if: ${{ github.event.label.name == 'release' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup JDK 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+          cache: 'maven'
+
+      - name: Dependency updates
+        run: |
+          mvn --batch-mode versions:display-dependency-updates -Dversions.outputFile=dependency-updates.txt -DoutputEncoding=utf-8
+
+          cat dependency-updates.txt >> $GITHUB_STEP_SUMMARY
