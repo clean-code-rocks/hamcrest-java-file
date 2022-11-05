@@ -6,7 +6,7 @@
 
     <groupId>rocks.cleancode</groupId>
     <artifactId>hamcrest-file</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>Hamcrest - File</name>
     <description>Java Hamcrest matchers for files and directories</description>
