@@ -21,7 +21,7 @@ jobs:
           java-version: '8'
           cache: 'maven'
 
-      - name: Publish package
+      - name: Dependency updates
         run: |
           mvn --batch-mode versions:display-dependency-updates -Dversions.outputFile=dependency-updates.txt -DoutputEncoding=utf-8
 
