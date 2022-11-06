@@ -6,7 +6,7 @@ on:
       - labeled
 
 jobs:
-  maven-updated:
+  maven-updates:
     name: Maven updates
     if: ${{ github.event.label.name == 'release' }}
     runs-on: ubuntu-latest
