@@ -26,6 +26,7 @@ jobs:
           mvn --batch-mode versions:display-dependency-updates -Dversions.outputFile=dependency-updates.txt -DoutputEncoding=utf-8
 
           echo "## Dependency updates" >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
           cat dependency-updates.txt >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
 
@@ -34,5 +35,6 @@ jobs:
           mvn --batch-mode versions:display-plugin-updates -Dversions.outputFile=plugin-updates.txt -DoutputEncoding=utf-8
 
           echo "## Plugin updates" >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
           cat plugin-updates.txt >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
