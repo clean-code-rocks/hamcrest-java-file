@@ -1,4 +1,4 @@
-name: Dependencies to update
+name: Maven updates
 
 on:
   pull_request:
@@ -6,8 +6,8 @@ on:
       - labeled
 
 jobs:
-  dependencies-to-update:
-    name: Dependencies to update
+  maven-updates:
+    name: Maven updates
     if: ${{ github.event.label.name == 'release' }}
     runs-on: ubuntu-latest
     steps:
@@ -25,4 +25,16 @@ jobs:
         run: |
           mvn --batch-mode versions:display-dependency-updates -Dversions.outputFile=dependency-updates.txt -DoutputEncoding=utf-8
 
+          echo "## Dependency updates" >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
           cat dependency-updates.txt >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+
+      - name: Plugin updates
+        run: |
+          mvn --batch-mode versions:display-plugin-updates -Dversions.outputFile=plugin-updates.txt -DoutputEncoding=utf-8
+
+          echo "## Plugin updates" >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          cat plugin-updates.txt >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
